@@ -5,46 +5,51 @@ $(".button").on("click", function(){
     let day = $("#day-dropDown").val();
     switch(day){
         case "Monday":
-            createTask("monday", "dropdown1");
+            createTask("monday");
             break;
         case "Tuesday":
-            createTask("tuesday", "dropdown2");
+            createTask("tuesday");
             break;
         case "Wednesday":
-            createTask("wednesday", "dropdown3");
+            createTask("wednesday");
             break;
         case "Thursday":
-            createTask("thursday", "dropdown4");
+            createTask("thursday");
             break;
         case "Friday":
-            createTask("friday", "dropdown5");
+            createTask("friday");
             break;
         case "Saturday":
-            createTask("saturday", "dropdown6");
+            createTask("saturday");
             break;
         case "Sunday":
-            createTask("sunday", "dropdown7");
+            createTask("sunday");
             break;
         case "Later":
-            createTask("later", "dropdown8");
+            createTask("later");
     }
 });
 
-
-
-function createTask(weekday, dropdown){
+function createTask(weekday){
     let day = $("#day-dropDown").val();
     let task = $(".task-text").val();
     let memo = $(".memo-text").val();
+    // create a div for newly added task and delete button
+    let taskDiv = document.createElement("div");
     // create a new p for newly added task and append to the div 
     let taskP = document.createElement("p");
-    taskP.classList.add(task);
     taskP.innerHTML = task;
-    document.getElementsByClassName(weekday)[0].appendChild(taskP);
-    // create a new option for the newly added task and append to the dropdown menu
-    let option = document.createElement("option");
-    option.text = task;
-    document.getElementById(dropdown).appendChild(option);
+    taskP.style.display = "inline";
+
+    // create a delete button for each task and add a function to remove the button's parent div, taskDiv
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "x";
+    deleteBtn.setAttribute("onclick", "$(this).parent('div').remove();");
+    // append new task and delete button to the new div
+    taskDiv.appendChild(taskP);
+    taskDiv.appendChild(deleteBtn);
+    // append taskDiv to the weekday div
+    document.getElementsByClassName(weekday)[0].appendChild(taskDiv);
 }
 
 
