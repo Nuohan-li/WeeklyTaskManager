@@ -36,20 +36,49 @@ function createTask(weekday){
     let memo = $(".memo-text").val();
     // create a div for newly added task and delete button
     let taskDiv = document.createElement("div");
+    taskDiv.style.width = "80%";
+
     // create a new p for newly added task and append to the div 
     let taskP = document.createElement("p");
     taskP.innerHTML = task;
     taskP.style.display = "inline";
+    taskP.style.marginTop = "3%";
 
     // create a delete button for each task and add a function to remove the button's parent div, taskDiv
     let deleteBtn = document.createElement("button");
     deleteBtn.textContent = "x";
     deleteBtn.setAttribute("onclick", "$(this).parent('div').remove();");
+    deleteBtn.style.marginLeft = "3%";
+    deleteBtn.style.marginTop = "3%";
+    deleteBtn.style.backgroundColor = "red";
+    deleteBtn.style.color = "white";
+    deleteBtn.style.borderRadius = "50%";
+
     // append new task and delete button to the new div
+    let hr = document.createElement("hr");
+    hr.style.marginTop = "2%" ;
+    
     taskDiv.appendChild(taskP);
     taskDiv.appendChild(deleteBtn);
+    taskDiv.appendChild(hr);
+
     // append taskDiv to the weekday div
     document.getElementsByClassName(weekday)[0].appendChild(taskDiv);
+}
+
+// element.parentNode.classList[0] -> returns the first class of the parent element
+// element.parentNode -> returns the parent element
+function deleteAll(element){
+    
+    let parentDiv = element.parentNode.classList[0];
+    let deleteAllBtn = document.createElement("button");
+    deleteAllBtn.id = element.id;
+    deleteAllBtn.setAttribute("onclick", "deleteAll(this)");
+    deleteAllBtn.textContent = "delete all";
+    
+    $(element).parent('div').empty();
+    document.getElementsByClassName(parentDiv)[0].appendChild(deleteAllBtn);
+   
 }
 
 
